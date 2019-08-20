@@ -34,6 +34,7 @@ public enum TermType {
     MUL(26),
     DIV(27),
     MOD(28),
+    POW(197),
     FLOOR(183),
     CEIL(184),
     ROUND(185),
@@ -229,6 +230,7 @@ public enum TermType {
             case 26: return TermType.MUL;
             case 27: return TermType.DIV;
             case 28: return TermType.MOD;
+            case 197: return TermType.POW;
             case 183: return TermType.FLOOR;
             case 184: return TermType.CEIL;
             case 185: return TermType.ROUND;

@@ -195,6 +195,9 @@ class RqlQuery(object):
     def __mod__(self, other):
         return Mod(self, other)
 
+    def __pow__(self, other):
+        return Pow(self, other)
+
     def __rmod__(self, other):
         return Mod(other, self)
 
@@ -252,6 +255,9 @@ class RqlQuery(object):
 
     def mod(self, *args):
         return Mod(self, *args)
+
+    def pow(self, *args):
+        return Pow(self, *args)
 
     def bit_and(self, *args):
         return BitAnd(self, *args)
@@ -967,8 +973,11 @@ class Div(RqlBiOperQuery):
 
 class Mod(RqlBiOperQuery):
     tt = pTerm.MOD
-    st = "%"
+    st = "**"
 
+class Pow(RqlBiOperQuery):
+    tt = pTerm.POW
+    st = "%"
 
 class BitAnd(RqlBiOperQuery):
     tt = pTerm.BIT_AND

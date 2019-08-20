@@ -85,6 +85,11 @@ public class ReqlExpr extends ReqlAst {
         arguments.coerceAndAdd(exprA);
         return new Mod(arguments);
     }
+    public Pow pow(Object exprA) {
+        Arguments arguments = new Arguments(this);
+        arguments.coerceAndAdd(exprA);
+        return new Pow(arguments);
+    }
     public BitAnd bitAnd(Object... exprs) {
         Arguments arguments = new Arguments(this);
         arguments.coerceAndAddAll(exprs);

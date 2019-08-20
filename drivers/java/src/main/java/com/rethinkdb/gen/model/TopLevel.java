@@ -191,6 +191,12 @@ public class TopLevel {
         args.coerceAndAdd(exprA);
         return new Mod(args);
     }
+    public Pow pow(Object expr, Object exprA){
+        Arguments args = new Arguments();
+        args.coerceAndAdd(expr);
+        args.coerceAndAdd(exprA);
+        return new Pow(args);
+    }
     public BitAnd bitAnd(Object expr, Object... exprs){
         Arguments args = new Arguments();
         args.coerceAndAdd(expr);

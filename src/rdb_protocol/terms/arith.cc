@@ -136,6 +136,21 @@ private:
     virtual const char *name() const { return "mod"; }
 };
 
+class pow_term_t : public op_term_t {
+public:
+    pow_term_t(compile_env_t *env, const raw_term_t &term)
+        : op_term_t(env, term, argspec_t(2)) { }
+private:
+    virtual scoped_ptr_t<val_t> eval_impl(scope_env_t *env, args_t *args, eval_flags_t) const {
+        int64_t i0 = args->arg(env, 0)->as_int();
+        int64_t i1 = args->arg(env, 1)->as_int();
+        rcheck(!(i0 == std::numeric_limits<int64_t>::min() && i1 == -1),
+                base_exc_t::LOGIC,
+                strprintf("Cannot derive " PRIi64 "^" PRIi64, i0, i1));
+        return new_val(datum_t(static_cast<double>(std::pow(i0, i1))));
+    }
+    virtual const char *name() const { return "pow"; }
+};
 
 int64_t bit_arith_ranged_int(const bt_rcheckable_t *target, scoped_ptr_t<val_t> &&val) {
     // All bitwise ops return values in the interval -(1<<53) <= ... < (1<<53) if the
@@ -303,6 +318,11 @@ counted_t<term_t> make_arith_term(
 counted_t<term_t> make_mod_term(
         compile_env_t *env, const raw_term_t &term) {
     return make_counted<mod_term_t>(env, term);
+}
+
+counted_t<term_t> make_pow_term(
+        compile_env_t *env, const raw_term_t &term) {
+    return make_counted<pow_term_t>(env, term);
 }
 
 counted_t<term_t> make_bit_arith_term(

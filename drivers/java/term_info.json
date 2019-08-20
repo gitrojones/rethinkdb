@@ -229,6 +229,15 @@
         "signatures": [["T_EXPR", "T_EXPR"]],
         "id": 28
     },
+    "POW": {
+        "binop": true,
+        "include_in": [
+            "T_TOP_LEVEL",
+            "T_EXPR"
+        ],
+        "signatures": [["T_EXPR", "T_EXPR"]],
+        "id": 197
+    },
     "BIT_AND": {
         "binop": true,
         "include_in": [

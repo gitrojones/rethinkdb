@@ -70,7 +70,7 @@ reql_docs = {
     "url": "args"
   }, 
   "api/javascript/avg/": {
-    "body": "sequence.avg([field | function]) &rarr; number", 
+    "body": "sequence.avg([field | function]) &rarr; numberr.avg(sequence, [field | function]) &rarr; number", 
     "description": "<p>Averages all the elements of a sequence.  If called with a field name,\naverages all the values of that field in the sequence, skipping\nelements of the sequence that lack that field.  If called with a\nfunction, calls that function on every element of the sequence and\naverages the results, skipping elements of the sequence where that\nfunction returns <code>null</code> or a non-existence error.</p>", 
     "example": "<p><strong>Example:</strong> What's the average of 3, 5, and 7?</p>\n<pre><code>r.expr([3, 5, 7]).avg().run(conn, callback)\n</code></pre>", 
     "io": [
@@ -108,84 +108,6 @@ reql_docs = {
     "name": "binary", 
     "url": "binary"
   }, 
-  "api/javascript/bit_and/": {
-    "body": "number.bitAnd(number[, number, ...]) &rarr; number",
-    "description": "<p>Compute the arithmetic \"and\" of one or more values.</p>",
-    "example": "<p><strong>Example:</strong></p>\n<pre><code>&gt; r.expr(6).bitAnd(4).run(conn, callback)\n// result passed to callback\n4\n</code></pre>",
-    "io": [
-      [
-        "number",
-        "number"
-      ]
-    ],
-    "name": "bitAnd",
-    "url": "bit_and"
-  },
-  "api/javascript/bit_not/": {
-    "body": "number.bitNot() &rarr; number",
-    "description": "<p>Compute the arithmetic inverse (not) of an expression.</p>",
-    "example": "<p><strong>Example:</strong></p>\n<pre><code>&gt; r.expr(15).bitNot().run(conn, callback)\n// result passed to callback\n-16\n</code></pre>",
-    "io": [
-      [
-        "number",
-        "number"
-      ]
-    ],
-    "name": "bitNot",
-    "url": "bit_not"
-  },
-  "api/javascript/bit_or/": {
-    "body": "number.bitOr(number[, number, ...]) &rarr; number",
-    "description": "<p>Compute the arithmetic \"or\" of one or more values.</p>",
-    "example": "<p><strong>Example:</strong></p>\n<pre><code>&gt; r.expr(6).bitOr(4).run(conn, callback)\n// result passed to callback\n6\n</code></pre>",
-    "io": [
-      [
-        "number",
-        "number"
-      ]
-    ],
-    "name": "bitOr",
-    "url": "bit_or"
-  },
-  "api/javascript/bit_sal/": {
-    "body": "number.bitSal(number, number) &rarr; numbernumber.bitSal(number[, number, ...]) &rarr; number",
-    "description": "<p>Compute the left arithmetic shift of one or more values..</p>",
-    "example": "<p><strong>Example:</strong></p>\n<pre><code>&gt; r.expr(5).bitSal(4).run(conn, callback)\n// result passed to callback\n80\n</code></pre>",
-    "io": [
-      [
-        "number",
-        "number"
-      ]
-    ],
-    "name": "bitSal",
-    "url": "bit_sal"
-  },
-  "api/javascript/bit_sar/": {
-    "body": "number.bitSar(number, number) &rarr; number",
-    "description": "<p>Compute the right arithmetic shift of one or more values.</p>",
-    "example": "<p><strong>Example:</strong></p>\n<pre><code>&gt; r.expr(32).bitSar(3).run(conn, callback)\n// result passed to callback\n4\n</code></pre>",
-    "io": [
-      [
-        "number",
-        "number"
-      ]
-    ],
-    "name": "bitSar",
-    "url": "bit_sar"
-  },
-  "api/javascript/bit_xor/": {
-    "body": "number.bitXor(number[, number, ...]) &rarr; number",
-    "description": "<p>Compute the arithmetic \"xor\" of one or more values.</p>",
-    "example": "<p><strong>Example:</strong></p>\n<pre><code>&gt; r.expr(6).bitXor(4).run(conn, callback)\n// result passed to callback\n2\n</code></pre>",
-    "io": [
-      [
-        "number",
-        "number"
-      ]
-    ],
-    "name": "bitXor",
-    "url": "bit_xor"
-  },
   "api/javascript/bracket/": {
     "body": "sequence(attr) &rarr; sequencesingleSelection(attr) &rarr; valueobject(attr) &rarr; valuearray(index) &rarr; value", 
     "description": "<p>Get a single field from an object. If called on a sequence, gets that field from every object in the sequence, skipping objects that lack it.</p>", 
@@ -234,7 +156,7 @@ reql_docs = {
     "url": "ceil"
   }, 
   "api/javascript/change_at/": {
-    "body": "array.changeAt(index, value) &rarr; array", 
+    "body": "array.changeAt(offset, value) &rarr; array", 
     "description": "<p>Change a value in an array at a given index. Returns the modified array.</p>", 
     "example": "<p><strong>Example:</strong> Bruce Banner hulks out.</p>\n<pre><code>r.expr([\"Iron Man\", \"Bruce\", \"Spider-Man\"]).changeAt(1, \"Hulk\").run(conn, callback)\n</code></pre>", 
     "io": [
@@ -277,9 +199,9 @@ reql_docs = {
     "url": "circle"
   }, 
   "api/javascript/close-cursor/": {
-    "body": "cursor.close()", 
-    "description": "<p>Close a cursor. Closing a cursor cancels the corresponding query and frees the memory\nassociated with the open request.</p>", 
-    "example": "<p><strong>Example:</strong> Close a cursor.</p>\n<pre><code>cursor.close()\n</code></pre>", 
+    "body": "cursor.close([callback])cursor.close() &rarr; promise", 
+    "description": "<p>Close a cursor. Closing a cursor cancels the corresponding query and frees the memory associated with the open request.</p>", 
+    "example": "<p><strong>Example:</strong> Close a cursor.</p>\n<pre><code>cursor.close(function (err) {\n    if (err) {\n        console.log(\"An error occurred on cursor close\");\n    }\n});\n</code></pre>", 
     "io": [
       [
         "cursor", 
@@ -383,9 +305,9 @@ reql_docs = {
     "url": "connect"
   }, 
   "api/javascript/contains/": {
-    "body": "sequence.contains([value | predicate_function, ...]) &rarr; bool", 
+    "body": "sequence.contains([value | predicate_function, ...]) &rarr; boolr.contains(sequence, [value | predicate_function, ...]) &rarr; bool", 
     "description": "<p>When called with values, returns <code>true</code> if a sequence contains all the\nspecified values.  When called with predicate functions, returns <code>true</code>\nif for each predicate there exists at least one element of the stream\nwhere that predicate returns <code>true</code>.</p>", 
-    "example": "<p><strong>Example:</strong> Has Iron Man ever fought Superman?</p>\n<pre><code>r.table('marvel').get('ironman')('opponents').contains('superman').run(conn, callback)\n</code></pre>", 
+    "example": "<p><strong>Example:</strong> Has Iron Man ever fought Superman?</p>\n<pre><code>r.table('marvel').get('ironman')('opponents').contains('superman').run(conn, callback);\n</code></pre>", 
     "io": [
       [
         "sequence", 
@@ -396,7 +318,7 @@ reql_docs = {
     "url": "contains"
   }, 
   "api/javascript/count/": {
-    "body": "sequence.count([value | predicate_function]) &rarr; numberbinary.count() &rarr; numberstring.count() &rarr; numberobject.count() &rarr; number", 
+    "body": "sequence.count([value | predicate_function]) &rarr; numberbinary.count() &rarr; numberstring.count() &rarr; numberobject.count() &rarr; numberr.count(sequence | binary | string | object[, predicate_function]) &rarr; number", 
     "description": "<p>Counts the number of elements in a sequence or key/value pairs in an object, or returns the size of a string or binary object.</p>", 
     "example": "<p><strong>Example:</strong> Count the number of users.</p>\n<pre><code>r.table('users').count().run(conn, callback);\n</code></pre>", 
     "io": [
@@ -555,7 +477,7 @@ reql_docs = {
     "url": "delete"
   }, 
   "api/javascript/delete_at/": {
-    "body": "array.deleteAt(index [,endIndex]) &rarr; array", 
+    "body": "array.deleteAt(offset [,endOffset]) &rarr; array", 
     "description": "<p>Remove one or more elements from an array at a given index. Returns the modified array. (Note: <code>deleteAt</code> operates on arrays, not documents; to delete documents, see the <a href=\"/api/javascript/delete\">delete</a> command.)</p>", 
     "example": "<p><strong>Example:</strong> Delete the second element of an array.</p>\n<pre><code>&gt; r(['a','b','c','d','e','f']).deleteAt(1).run(conn, callback)\n// result passed to callback\n['a', 'c', 'd', 'e', 'f']\n</code></pre>", 
     "io": [
@@ -594,7 +516,7 @@ reql_docs = {
     "url": "distance"
   }, 
   "api/javascript/distinct/": {
-    "body": "sequence.distinct() &rarr; arraytable.distinct([{index: <indexname>}]) &rarr; stream", 
+    "body": "sequence.distinct() &rarr; arraytable.distinct([{index: <indexname>}]) &rarr; streamr.distinct(sequence) &rarr; arrayr.distinct(table, [{index: <indexname>}]) &rarr; stream", 
     "description": "<p>Removes duplicates from elements in a sequence.</p>", 
     "example": "<p><strong>Example:</strong> Which unique villains have been vanquished by Marvel heroes?</p>\n<pre><code>r.table('marvel').concatMap(function(hero) {\n    return hero('villainList')\n}).distinct().run(conn, callback)\n</code></pre>", 
     "io": [
@@ -677,8 +599,8 @@ reql_docs = {
   }, 
   "api/javascript/each_async/": {
     "body": "sequence.eachAsync(function[, errorFunction]) &rarr; promise", 
-    "description": "<p>Lazily iterate over a cursor, array or feed one element at a time. <code>eachAsync</code> always returns a promise that will be resolved once all rows are returned.</p>", 
-    "example": "<p><strong>Example:</strong> Process all the elements in a stream, using <code>then</code> and <code>catch</code> for handling the end of the stream and any errors. Note that iteration may be stopped in the first callback (<code>rowProcess</code>) by returning any non-Promise value.</p>\n<pre><code>cursor.eachAsync(function (row) {\n    var ok = processRowData(row);\n    if (!ok) {\n        return 'Bad row: ' + row;\n    }\n}).then(function () {\n    console.log('done processing');\n}).catch(function (error) {\n    console.log('Error:', error.message);\n});\n</code></pre>", 
+    "description": "<p>Lazily iterate over a cursor, array, or feed one element at a time. <code>eachAsync</code> always returns a promise that will be resolved once all rows are returned.</p>", 
+    "example": "<p><strong>Example:</strong> Process all the elements in a stream, using <code>then</code> and <code>catch</code> for handling the end of the stream and any errors. Note that iteration may be stopped in the first callback (<code>rowProcess</code>) by returning any non-Promise value.</p>\n<pre><code>cursor.eachAsync(function (row) {\n    var ok = processRowData(row);\n    if (!ok) {\n        throw new Error('Bad row: ' + row);\n    }\n}).then(function () {\n    console.log('done processing');\n}).catch(function (error) {\n    console.log('Error:', error.message);\n});\n</code></pre>", 
     "io": [
       [
         "cursor", 
@@ -690,7 +612,7 @@ reql_docs = {
   }, 
   "api/javascript/ee-cursor/": {
     "body": "cursor.addListener(event, listener)cursor.on(event, listener)cursor.once(event, listener)cursor.removeListener(event, listener)cursor.removeAllListeners([event])cursor.setMaxListeners(n)cursor.listeners(event)cursor.emit(event, [arg1], [arg2], [...])", 
-    "description": "<p>Cursors and feeds implement the same interface as Node's [EventEmitter][ee].</p>", 
+    "description": "<p>Cursors and feeds implement the same interface as Node's <a href=\"http://nodejs.org/api/events.html#events_class_events_eventemitter\">EventEmitter</a>.</p>", 
     "example": "<p><strong>Example:</strong> Broadcast all messages with <a href=\"http://socket.io\">socket.io</a>.</p>\n<pre><code>r.table(\"messages\").orderBy({index: \"date\"}).run(conn, function(err, cursor) {\n    if (err) {\n        // Handle error\n        return\n    }\n\n    cursor.on(\"error\", function(error) {\n        // Handle error\n    })\n    cursor.on(\"data\", function(message) {\n        socket.broadcast.emit(\"message\", message)\n    })\n});\n</code></pre>", 
     "io": [
       [
@@ -728,9 +650,9 @@ reql_docs = {
     "url": "eq"
   }, 
   "api/javascript/eq_join/": {
-    "body": "sequence.eqJoin(leftField, rightTable[, {index: 'id', ordered: false}]) &rarr; sequencesequence.eqJoin(predicate_function, rightTable[, {index: 'id', ordered: false}]) &rarr; sequence", 
+    "body": "sequence.eqJoin(leftField, rightTable[, {index: 'id', ordered: false}]) &rarr; sequencesequence.eqJoin(function, rightTable[, {index: 'id', ordered: false}]) &rarr; sequence", 
     "description": "<p>Join tables using a field or function on the left-hand sequence matching primary keys or secondary indexes on the right-hand table. <code>eqJoin</code> is more efficient than other ReQL join types, and operates much faster. Documents in the result set consist of pairs of left-hand and right-hand documents, matched when the field on the left-hand side exists and is non-null and an entry with that field's value exists in the specified index on the right-hand side.</p>", 
-    "example": "", 
+    "example": "<p><strong>Example:</strong> Match players with the games they've played against one another.</p>\n<p>Join these tables using <code>gameId</code> on the player table and <code>id</code> on the games table:</p>\n<pre><code>r.table('players').eqJoin('gameId', r.table('games')).run(conn, callback)\n</code></pre>\n<p>This will return a result set such as the following:</p>\n<pre><code>[\n    {\n        \"left\" : { \"gameId\" : 3, \"id\" : 2, \"player\" : \"Agatha\" },\n        \"right\" : { \"id\" : 3, \"field\" : \"Bucklebury\" }\n    },\n    {\n        \"left\" : { \"gameId\" : 2, \"id\" : 3, \"player\" : \"Fred\" },\n        \"right\" : { \"id\" : 2, \"field\" : \"Rushock Bog\" }\n    },\n    ...\n]\n</code></pre>", 
     "io": [
       [
         "sequence", 
@@ -942,8 +864,8 @@ reql_docs = {
   }, 
   "api/javascript/get_nearest/": {
     "body": "table.getNearest(point, {index: 'indexname'[, maxResults: 100, maxDist: 100000, unit: 'm', geoSystem: 'WGS84']}) &rarr; array", 
-    "description": "<p>Get all documents where the specified geospatial index is within a certain distance of the specified point (default 100 kilometers).</p>", 
-    "example": "<p><strong>Example:</strong> Return a list of enemy hideouts within 5000 meters of the secret base.</p>\n<pre><code>var secretBase = r.point(-122.422876,37.777128);\nr.table('hideouts').getNearest(secretBase,\n    {index: 'location', maxDist: 5000}\n).run(conn, callback)\n</code></pre>", 
+    "description": "<p>Return a list of documents closest to a specified point based on a geospatial index, sorted in order of increasing distance.</p>", 
+    "example": "<p><strong>Example:</strong> Return a list of the closest 25 enemy hideouts to the secret base.</p>\n<pre><code>var secretBase = r.point(-122.422876,37.777128);\nr.table('hideouts').getNearest(secretBase,\n    {index: 'location', maxResults: 25}\n).run(conn, callback)\n</code></pre>", 
     "io": [
       [
         "table", 
@@ -975,7 +897,7 @@ reql_docs = {
     "url": "grant"
   }, 
   "api/javascript/group/": {
-    "body": "sequence.group(field | function..., [{index: <indexname>, multi: false}]) &rarr; grouped_stream", 
+    "body": "sequence.group(field | function..., [{index: <indexname>, multi: false}]) &rarr; grouped_streamr.group(sequence, field | function..., [{index: <indexname>, multi: false}]) &rarr; grouped_stream", 
     "description": "<p>Takes a stream and partitions it into multiple groups based on the\nfields or functions provided.</p>", 
     "example": "<p><strong>Example:</strong> Group games by player.</p>\n<pre><code>&gt; r.table('games').group('player').run(conn, callback)\n\n// Result passed to callback\n[\n    {\n        group: \"Alice\",\n        reduction: [\n            {id: 5, player: \"Alice\", points: 7, type: \"free\"},\n            {id: 12, player: \"Alice\", points: 2, type: \"free\"}\n        ]\n    },\n    {\n        group: \"Bob\",\n        reduction: [\n            {id: 2, player: \"Bob\", points: 15, type: \"ranked\"},\n            {id: 11, player: \"Bob\", points: 10, type: \"free\"}\n        ]\n    }\n]\n</code></pre>", 
     "io": [
@@ -1215,7 +1137,7 @@ reql_docs = {
     "url": "insert"
   }, 
   "api/javascript/insert_at/": {
-    "body": "array.insertAt(index, value) &rarr; array", 
+    "body": "array.insertAt(offset, value) &rarr; array", 
     "description": "<p>Insert a value in to an array at a given index. Returns the modified array.</p>", 
     "example": "<p><strong>Example:</strong> Hulk decides to join the avengers.</p>\n<pre><code>r.expr([\"Iron Man\", \"Spider-Man\"]).insertAt(1, \"Hulk\").run(conn, callback)\n</code></pre>", 
     "io": [
@@ -1413,7 +1335,7 @@ reql_docs = {
     "url": "match"
   }, 
   "api/javascript/max/": {
-    "body": "sequence.max(field | function) &rarr; elementsequence.max({index: <indexname>}) &rarr; element", 
+    "body": "sequence.max(field | function) &rarr; elementsequence.max({index: <indexname>}) &rarr; elementr.max(sequence, field | function) &rarr; elementr.max(sequence, {index: <indexname>}) &rarr; element", 
     "description": "<p>Finds the maximum element of a sequence.</p>", 
     "example": "<p><strong>Example:</strong> Return the maximum value in the list <code>[3, 5, 7]</code>.</p>\n<pre><code>r.expr([3, 5, 7]).max().run(conn, callback);\n</code></pre>", 
     "io": [
@@ -1451,7 +1373,7 @@ reql_docs = {
     "url": "merge"
   }, 
   "api/javascript/min/": {
-    "body": "sequence.min(field | function) &rarr; elementsequence.min({index: <indexname>}) &rarr; element", 
+    "body": "sequence.min(field | function) &rarr; elementsequence.min({index: <indexname>}) &rarr; elementr.min(sequence, field | function) &rarr; elementr.min(sequence, {index: <indexname>}) &rarr; element", 
     "description": "<p>Finds the minimum element of a sequence.</p>", 
     "example": "<p><strong>Example:</strong> Return the minimum value in the list <code>[3, 5, 7]</code>.</p>\n<pre><code>r.expr([3, 5, 7]).min().run(conn, callback);\n</code></pre>", 
     "io": [
@@ -1599,7 +1521,7 @@ reql_docs = {
   }, 
   "api/javascript/object/": {
     "body": "r.object([key, value,]...) &rarr; object", 
-    "description": "<p>Creates an object from a list of key-value pairs, where the keys must\nbe strings.  <code>r.object(A, B, C, D)</code> is equivalent to\n<code>r.expr([[A, B], [C, D]]).coerce_to('OBJECT')</code>.</p>", 
+    "description": "<p>Creates an object from a list of key-value pairs, where the keys must\nbe strings.  <code>r.object(A, B, C, D)</code> is equivalent to\n<code>r.expr([[A, B], [C, D]]).coerceTo('OBJECT')</code>.</p>", 
     "example": "<p><strong>Example:</strong> Create a simple object.</p>\n<pre><code>r.object('id', 5, 'data', ['foo', 'bar']).run(conn, callback)\n</code></pre>\n<p>Result:</p>\n<pre><code>{data: [\"foo\", \"bar\"], id: 5}\n</code></pre>", 
     "io": [
       [
@@ -1738,6 +1660,19 @@ reql_docs = {
     "name": "polygonSub", 
     "url": "polygon_sub"
   }, 
+  "api/javascript/pow/": {
+    "body": "number.pow(number) &rarr; number", 
+    "description": "", 
+    "example": "<p><strong>Example:</strong> Return 10 raised to the power of 2.</p>\n<pre><code>r.expr(10).pow(2).run(conn, callback);\n</code></pre>", 
+    "io": [
+      [
+        "number", 
+        "number"
+      ]
+    ], 
+    "name": "pow", 
+    "url": "pow"
+  }, 
   "api/javascript/prepend/": {
     "body": "array.prepend(value) &rarr; array", 
     "description": "<p>Prepend a value to an array.</p>", 
@@ -1836,7 +1771,7 @@ reql_docs = {
     "url": "reconnect"
   }, 
   "api/javascript/reduce/": {
-    "body": "sequence.reduce(function) &rarr; value", 
+    "body": "sequence.reduce(function) &rarr; valuer.reduce(sequence, function) &rarr; value", 
     "description": "<p>Produce a single value from a sequence through repeated application of a reduction function.</p>", 
     "example": "<p><strong>Example:</strong> Return the number of documents in the table <code>posts</code>.</p>\n<pre><code>r.table(\"posts\").map(function(doc) {\n    return 1;\n}).reduce(function(left, right) {\n    return left.add(right);\n}).default(0).run(conn, callback);\n</code></pre>\n<p>A shorter way to execute this query is to use <a href=\"/api/javascript/count\">count</a>.</p>", 
     "io": [
@@ -2025,7 +1960,7 @@ reql_docs = {
     "url": "skip"
   }, 
   "api/javascript/slice/": {
-    "body": "selection.slice(startIndex[, endIndex, {leftBound:'closed', rightBound:'open'}]) &rarr; selectionstream.slice(startIndex[, endIndex, {leftBound:'closed', rightBound:'open'}]) &rarr; streamarray.slice(startIndex[, endIndex, {leftBound:'closed', rightBound:'open'}]) &rarr; arraybinary.slice(startIndex[, endIndex, {leftBound:'closed', rightBound:'open'}]) &rarr; binarystring.slice(startIndex[, endIndex, {leftBound:'closed', rightBound:'open'}]) &rarr; string", 
+    "body": "selection.slice(startOffset[, endOffset, {leftBound:'closed', rightBound:'open'}]) &rarr; selectionstream.slice(startOffset[, endOffset, {leftBound:'closed', rightBound:'open'}]) &rarr; streamarray.slice(startOffset[, endOffset, {leftBound:'closed', rightBound:'open'}]) &rarr; arraybinary.slice(startOffset[, endOffset, {leftBound:'closed', rightBound:'open'}]) &rarr; binarystring.slice(startOffset[, endOffset, {leftBound:'closed', rightBound:'open'}]) &rarr; string", 
     "description": "<p>Return the elements of a sequence within the specified range.</p>", 
     "example": "<p><strong>Example:</strong> Return the fourth, fifth and sixth youngest players. (The youngest player is at index 0, so those are elements 3&ndash;5.)</p>\n<pre><code>r.table('players').orderBy({index: 'age'}).slice(3,6).run(conn, callback);\n</code></pre>", 
     "io": [
@@ -2046,7 +1981,7 @@ reql_docs = {
     "url": "slice"
   }, 
   "api/javascript/splice_at/": {
-    "body": "array.spliceAt(index, array) &rarr; array", 
+    "body": "array.spliceAt(offset, array) &rarr; array", 
     "description": "<p>Insert several values in to an array at a given index. Returns the modified array.</p>", 
     "example": "<p><strong>Example:</strong> Hulk and Thor decide to join the avengers.</p>\n<pre><code>r.expr([\"Iron Man\", \"Spider-Man\"]).spliceAt(1, [\"Hulk\", \"Thor\"]).run(conn, callback)\n</code></pre>", 
     "io": [
@@ -2106,7 +2041,7 @@ reql_docs = {
     "url": "sub"
   }, 
   "api/javascript/sum/": {
-    "body": "sequence.sum([field | function]) &rarr; number", 
+    "body": "sequence.sum([field | function]) &rarr; numberr.sum(sequence, [field | function]) &rarr; number", 
     "description": "<p>Sums all the elements of a sequence.  If called with a field name,\nsums all the values of that field in the sequence, skipping elements\nof the sequence that lack that field.  If called with a function,\ncalls that function on every element of the sequence and sums the\nresults, skipping elements of the sequence where that function returns\n<code>null</code> or a non-existence error.</p>", 
     "example": "<p><strong>Example:</strong> What's 3 + 5 + 7?</p>\n<pre><code>r.expr([3, 5, 7]).sum().run(conn, callback)\n</code></pre>", 
     "io": [
@@ -2314,7 +2249,7 @@ reql_docs = {
     "url": "ungroup"
   }, 
   "api/javascript/union/": {
-    "body": "stream.union(sequence[, sequence, ...][, {interleave: true}]) &rarr; streamarray.union(sequence[, sequence, ...][, {interleave: true}]) &rarr; array", 
+    "body": "stream.union(sequence[, sequence, ...][, {interleave: true}]) &rarr; streamarray.union(sequence[, sequence, ...][, {interleave: true}]) &rarr; arrayr.union(stream, sequence[, sequence, ...][, {interleave: true}]) &rarr; streamr.union(array, sequence[, sequence, ...][, {interleave: true}]) &rarr; array", 
     "description": "<p>Merge two or more sequences.</p>", 
     "example": "<p><strong>Example:</strong> Construct a stream of all heroes.</p>\n<pre><code>r.table('marvel').union(r.table('dc')).run(conn, callback);\n</code></pre>", 
     "io": [
@@ -2404,7 +2339,7 @@ reql_docs = {
     "url": "values"
   }, 
   "api/javascript/wait/": {
-    "body": "table.wait([{waitFor: 'ready_for_writes', timeout: <sec>}]) &rarr; objectdatabase.wait([{waitFor: 'ready_for_writes', timeout: <sec>}]) &rarr; objectr.wait(table | database, [{waitFor: 'ready_for_writes', timeout: <sec>}]) &rarr; object", 
+    "body": "table.wait([{waitFor: 'all_replicas_ready', timeout: <sec>}]) &rarr; objectdatabase.wait([{waitFor: 'all_replicas_ready', timeout: <sec>}]) &rarr; objectr.wait(table | database, [{waitFor: 'all_replicas_ready', timeout: <sec>}]) &rarr; object", 
     "description": "<p>Wait for a table or all the tables in a database to be ready. A table may be temporarily unavailable after creation, rebalancing or reconfiguring. The <code>wait</code> command blocks until the given table (or database) is fully up to date.</p>", 
     "example": "<p><strong>Example:</strong> Wait on a table to be ready.</p>\n<pre><code>&gt; r.table('superheroes').wait().run(conn, callback);\n// Result passed to callback\n{ \"ready\": 1 }\n</code></pre>", 
     "io": [

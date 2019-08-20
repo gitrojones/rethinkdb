@@ -8,7 +8,7 @@ __all__ = [
     'table', 'table_create', 'table_drop', 'table_list', 'grant',
     'group', 'reduce', 'count', 'sum', 'avg', 'min', 'max', 'distinct',
     'contains', 'eq', 'ne', 'le', 'ge', 'lt', 'gt', 'and_', 'or_', 'not_',
-    'add', 'sub', 'mul', 'div', 'mod', 'bit_and', 'bit_or', 'bit_xor',
+    'add', 'sub', 'mul', 'div', 'mod', 'pow', 'bit_and', 'bit_or', 'bit_xor',
     'bit_not', 'bit_sal', 'bit_sar', 'floor', 'ceil',
     'round',
     'time', 'iso8601', 'epoch_time', 'now', 'make_timezone',
@@ -202,6 +202,8 @@ def div(*args):
 def mod(*args):
     return ast.Mod(*args)
 
+def pow(*args):
+    return ast.Pow(*args)
 
 def bit_and(*args):
     return ast.BitAnd(*args)
